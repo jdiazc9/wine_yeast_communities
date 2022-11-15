@@ -406,7 +406,6 @@ loo$sq_err <- (loo$fun_pred - loo$fun_obs)^2
 
 # plot of model accuracy vs community richness
 # keep only communities that contain Sc
-
 plot_this <- loo[grepl('Sc', loo$community) & loo$n_species > 1, ]
 plot_this$n_species <- plot_this$n_species - 1
 plot_this$n_species <- factor(plot_this$n_species,
@@ -419,7 +418,8 @@ ggplot(plot_this, aes(x = n_species, y = sq_err, group = n_species)) +
                fill = NA) +
   scale_x_discrete(name = '# of species\nco-inoculated with S. cerevisiae') +
   scale_y_continuous(name = expression((italic(F)[pred] - italic(F)[obs])^2),
-                     trans = 'log10') +
+                     limits = c(0, 0.6),
+                     breaks = c(0, 0.2, 0.4, 0.6)) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         axis.text = element_text(size = 16),
